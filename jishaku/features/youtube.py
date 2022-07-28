@@ -48,7 +48,7 @@ class YouTubeFeature(Feature):
     Feature containing the youtube-dl command
     """
 
-    @Feature.Command(parent="jsk_voice", name="youtube_dl", aliases=["youtubedl", "ytdl", "yt"])
+    @Feature.Command(name="youtube_dl", aliases=["youtubedl", "ytdl", "yt"])
     async def jsk_vc_youtube_dl(self, ctx: ContextA, *, url: str):
         """
         Plays audio from youtube_dl-compatible sources.
