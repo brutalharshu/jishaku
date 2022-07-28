@@ -162,34 +162,6 @@ class RootCommand(Feature):
 
         await ctx.send("\n".join(summary))
 
-    # pylint: disable=no-member
-    @Feature.Command( name="hide")
-    async def jsk_hide(self, ctx: ContextA):
-        """
-        Hides Jishaku from the help command.
-        """
-
-        if self.jsk.hidden:  # type: ignore
-            return await ctx.send("Jishaku is already hidden.")
-
-        self.jsk.hidden = True  # type: ignore
-        await ctx.send("Jishaku is now hidden.")
-
-    @Feature.Command( name="show")
-    async def jsk_show(self, ctx: ContextA):
-        """
-        Shows Jishaku in the help command.
-        """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
-
-        if not self.jsk.hidden:  # type: ignore
-            return await ctx.send("Jishaku is already visible.")
-
-        self.jsk.hidden = False  # type: ignore
-        await ctx.send("Jishaku is now visible.")
-    # pylint: enable=no-member
-
     @Feature.Command(name="tasks", aliases=["task"])
     async def jsk_tasks(self, ctx: ContextA):
         """
