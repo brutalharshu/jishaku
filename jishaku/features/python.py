@@ -60,7 +60,7 @@ class PythonFeature(Feature):
             return self._scope
         return Scope()
 
-    @Feature.Command(parent="jsk", name="retain")
+    @Feature.Command( name="retain")
     async def jsk_retain(self, ctx: ContextA, *, toggle: bool = None):  # type: ignore
         """
         Turn variable retention for REPL on or off.
@@ -172,7 +172,7 @@ class PythonFeature(Feature):
 
         return arg_dict, convertables
 
-    @Feature.Command(parent="jsk", name="py", aliases=["python","lnl"])
+    @Feature.Command( name="py", aliases=["python","lnl"])
     async def jsk_python(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
         """
         Direct evaluation of Python code.
@@ -204,7 +204,7 @@ class PythonFeature(Feature):
         finally:
             scope.clear_intersection(arg_dict)
 
-    @Feature.Command(parent="jsk", name="py_inspect", aliases=["pyi", "python_inspect", "pythoninspect"])
+    @Feature.Command( name="py_inspect", aliases=["pyi", "python_inspect", "pythoninspect"])
     async def jsk_python_inspect(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
         """
         Evaluation of Python code with inspect information.
@@ -264,7 +264,7 @@ class PythonFeature(Feature):
             scope.clear_intersection(arg_dict)
 
     if line_profiler is not None:
-        @Feature.Command(parent="jsk", name="timeit")
+        @Feature.Command( name="timeit")
         async def jsk_timeit(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
             """
             Times and produces a relative timing report for a block of code.
@@ -381,7 +381,7 @@ class PythonFeature(Feature):
             finally:
                 scope.clear_intersection(arg_dict)
 
-    @Feature.Command(parent="jsk", name="dis", aliases=["disassemble"])
+    @Feature.Command( name="dis", aliases=["disassemble"])
     async def jsk_disassemble(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
         """
         Disassemble Python code into bytecode.
@@ -410,7 +410,7 @@ class PythonFeature(Feature):
                 interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
                 await interface.send_to(ctx)
 
-    @Feature.Command(parent="jsk", name="ast")
+    @Feature.Command( name="ast")
     async def jsk_ast(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
         """
         Disassemble Python code into AST.

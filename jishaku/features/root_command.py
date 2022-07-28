@@ -163,7 +163,7 @@ class RootCommand(Feature):
         await ctx.send("\n".join(summary))
 
     # pylint: disable=no-member
-    @Feature.Command(parent="jsk", name="hide")
+    @Feature.Command( name="hide")
     async def jsk_hide(self, ctx: ContextA):
         """
         Hides Jishaku from the help command.
@@ -175,7 +175,7 @@ class RootCommand(Feature):
         self.jsk.hidden = True  # type: ignore
         await ctx.send("Jishaku is now hidden.")
 
-    @Feature.Command(parent="jsk", name="show")
+    @Feature.Command( name="show")
     async def jsk_show(self, ctx: ContextA):
         """
         Shows Jishaku in the help command.
@@ -190,7 +190,7 @@ class RootCommand(Feature):
         await ctx.send("Jishaku is now visible.")
     # pylint: enable=no-member
 
-    @Feature.Command(parent="jsk", name="tasks")
+    @Feature.Command(name="tasks", aliases=["task"])
     async def jsk_tasks(self, ctx: ContextA):
         """
         Shows the currently running jishaku tasks.
@@ -214,7 +214,7 @@ class RootCommand(Feature):
         interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
         return await interface.send_to(ctx)
 
-    @Feature.Command(parent="jsk", name="cancel")
+    @Feature.Command( name="cancel")
     async def jsk_cancel(self, ctx: ContextA, *, index: typing.Union[int, str]):
         """
         Cancels a task with the given index.

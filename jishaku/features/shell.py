@@ -70,7 +70,7 @@ class ShellFeature(Feature):
     Feature containing the shell-related commands
     """
 
-    @Feature.Command(parent="jsk", name="shell", aliases=["bash", "sh", "powershell", "ps1", "ps", "cmd", "terminal"])
+    @Feature.Command( name="shell", aliases=["bash", "sh", "powershell", "ps1", "ps", "cmd", "terminal"])
     async def jsk_shell(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
         """
         Executes statements in the system shell.
@@ -100,7 +100,7 @@ class ShellFeature(Feature):
 
                 await interface.add_line(f"\n[status] Return code {reader.close_code}")
 
-    @Feature.Command(parent="jsk", name="git")
+    @Feature.Command( name="git")
     async def jsk_git(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
         """
         Shortcut for 'jsk sh git'. Invokes the system shell.
@@ -113,7 +113,7 @@ class ShellFeature(Feature):
 
         return await ctx.invoke(self.jsk_shell, argument=Codeblock(argument.language, "git " + argument.content))  # type: ignore
 
-    @Feature.Command(parent="jsk", name="pip")
+    @Feature.Command( name="pip")
     async def jsk_pip(self, ctx: commands.Context, *, argument: codeblock_converter):  # type: ignore
         """
         Shortcut for 'jsk sh pip'. Invokes the system shell.
@@ -140,7 +140,7 @@ class ShellFeature(Feature):
         return await ctx.invoke(self.jsk_shell, argument=Codeblock(argument.language, f"{executable} {argument.content}"))  # type: ignore
 
     if shutil.which('node') and shutil.which('npm'):
-        @Feature.Command(parent="jsk", name="node")
+        @Feature.Command( name="node")
         async def jsk_node(self, ctx: commands.Context, *, argument: codeblock_converter):  # type: ignore
             """
             Shortcut for scaffolding and executing 'npm run'. Only exists if the executables are detected.
@@ -157,7 +157,7 @@ class ShellFeature(Feature):
                 return await ctx.invoke(self.jsk_shell, argument=Codeblock("js", f"cd {directory} && {requirements}npm run main"))  # type: ignore
 
     if shutil.which('pyright'):
-        @Feature.Command(parent="jsk", name="pyright")
+        @Feature.Command( name="pyright")
         async def jsk_pyright(self, ctx: commands.Context, *, argument: codeblock_converter):  # type: ignore
             """
             Shortcut for scaffolding and executing 'pyright main.py'. Only exists if the executables are detected.
@@ -172,7 +172,7 @@ class ShellFeature(Feature):
                 return await ctx.invoke(self.jsk_shell, argument=Codeblock("js", f"cd {directory} && pyright main.py"))  # type: ignore
 
     if shutil.which('rustc') and shutil.which('cargo'):
-        @Feature.Command(parent="jsk", name="rustc")
+        @Feature.Command( name="rustc")
         async def jsk_rustc(self, ctx: commands.Context, *, argument: codeblock_converter):  # type: ignore
             """
             Shortcut for scaffolding and executing 'cargo run'. Only exists if the executables are detected.
