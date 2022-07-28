@@ -33,7 +33,7 @@ class FilesystemFeature(Feature):
 
     __cat_line_regex = re.compile(r"(?:\.\/+)?(.+?)(?:#L?(\d+)(?:\-L?(\d+))?)?$")
 
-    @Feature.Command( name="cat")
+    @Feature.Command(name="file")
     async def jsk_cat(self, ctx: ContextA, argument: str):
         """
         Read out a file, using syntax highlighting if detected.
