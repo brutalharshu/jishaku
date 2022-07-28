@@ -116,7 +116,7 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
 
     async def __aenter__(self):
         self.handle = self.loop.create_task(do_after_sleep(2, attempt_add_reaction, self.message,
-                                                           "\N{BLACK RIGHT-POINTING TRIANGLE}"))
+                                                           "<a:arrow:1002174395617386588>"))
         return self
 
     async def __aexit__(
@@ -130,7 +130,7 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
 
         # no exception, check mark
         if not exc_val:
-            await attempt_add_reaction(self.message, "\N{WHITE HEAVY CHECK MARK}")
+            await attempt_add_reaction(self.message, "<a:success:1002155523640152124>")
             return False
 
         self.raised = True
@@ -144,7 +144,7 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
                     self.message,
                     # timed out is alarm clock
                     # syntax error is single exclamation mark
-                    "\N{HEAVY EXCLAMATION MARK SYMBOL}" if isinstance(exc_val, SyntaxError) else "\N{ALARM CLOCK}"
+                    "<a:wrong:1002175285887762532>" if isinstance(exc_val, SyntaxError) else "<a:google:1002157667332149318>"
                 )
 
             await send_traceback(
@@ -156,7 +156,7 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
 
             if destination != self.message.channel:
                 # other error, double exclamation mark
-                await attempt_add_reaction(self.message, "\N{DOUBLE EXCLAMATION MARK}")
+                await attempt_add_reaction(self.message, "<a:cross:1002155530334249071>")
 
             # this traceback likely needs more info, so increase verbosity, and DM it instead.
             await send_traceback(

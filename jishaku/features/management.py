@@ -34,13 +34,15 @@ class ManagementFeature(Feature):
     Feature containing the extension and bot control commands
     """
 
-    @Feature.Command(parent="jsk", name="load", aliases=["reload"])
+    @Feature.Command(name="load", aliases=["reload"])
     async def jsk_load(self, ctx: ContextA, *extensions: ExtensionConverter):  # type: ignore
         """
         Loads or reloads the given extension names.
 
         Reports any extensions that failed to load.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         extensions: typing.Iterable[typing.List[str]] = extensions  # type: ignore
 
@@ -52,9 +54,9 @@ class ManagementFeature(Feature):
 
         for extension in itertools.chain(*extensions):
             method, icon = (
-                (self.bot.reload_extension, "\N{CLOCKWISE RIGHTWARDS AND LEFTWARDS OPEN CIRCLE ARROWS}")
+                (self.bot.reload_extension, "<:pln:1002153692268593173>")
                 if extension in self.bot.extensions else
-                (self.bot.load_extension, "\N{INBOX TRAY}")
+                (self.bot.load_extension, "<:lopn:1002153688812490842>")
             )
 
             try:
@@ -63,7 +65,7 @@ class ManagementFeature(Feature):
                 traceback_data = ''.join(traceback.format_exception(type(exc), exc, exc.__traceback__, 1))
 
                 paginator.add_line(
-                    f"{icon}\N{WARNING SIGN} `{extension}`\n```py\n{traceback_data}\n```",
+                    f"{icon} `{extension}`\n```py\n{traceback_data}\n```",
                     empty=True
                 )
             else:
@@ -72,18 +74,20 @@ class ManagementFeature(Feature):
         for page in paginator.pages:
             await ctx.send(page)
 
-    @Feature.Command(parent="jsk", name="unload")
+    @Feature.Command(name="unload")
     async def jsk_unload(self, ctx: ContextA, *extensions: ExtensionConverter):  # type: ignore
         """
         Unloads the given extension names.
 
         Reports any extensions that failed to unload.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         extensions: typing.Iterable[typing.List[str]] = extensions  # type: ignore
 
         paginator = commands.Paginator(prefix='', suffix='')
-        icon = "\N{OUTBOX TRAY}"
+        icon = "<:Info:1002155559098781787>"
 
         for extension in itertools.chain(*extensions):
             try:
@@ -92,7 +96,7 @@ class ManagementFeature(Feature):
                 traceback_data = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__, 1))
 
                 paginator.add_line(
-                    f"{icon}\N{WARNING SIGN} `{extension}`\n```py\n{traceback_data}\n```",
+                    f"{icon} `{extension}`\n```py\n{traceback_data}\n```",
                     empty=True
                 )
             else:
@@ -101,18 +105,18 @@ class ManagementFeature(Feature):
         for page in paginator.pages:
             await ctx.send(page)
 
-    @Feature.Command(parent="jsk", name="shutdown", aliases=["logout"])
+    @Feature.Command(name="shutdown", aliases=["logout"])
     async def jsk_shutdown(self, ctx: ContextA):
         """
         Logs this bot out.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
-        ellipse_character = "\N{BRAILLE PATTERN DOTS-356}" if Flags.USE_BRAILLE_J else "\N{HORIZONTAL ELLIPSIS}"
-
-        await ctx.send(f"Logging out now{ellipse_character}")
+        await ctx.send(f"Logging out now <:bot:1002153704645988372>")
         await ctx.bot.close()
 
-    @Feature.Command(parent="jsk", name="invite")
+    @Feature.Command(name="invite")
     async def jsk_invite(self, ctx: ContextA, *perms: str):
         """
         Retrieve the invite URL for this bot.
@@ -120,32 +124,16 @@ class ManagementFeature(Feature):
         If the names of permissions are provided, they are requested as part of the invite.
         """
 
-        scopes = ('bot', 'applications.commands')
-        permissions = discord.Permissions()
-
-        for perm in perms:
-            if perm not in dict(permissions):
-                raise commands.BadArgument(f"Invalid permission: {perm}")
-
-            setattr(permissions, perm, True)
-
         application_info = await self.bot.application_info()
+        await ctx.send(f"Link to invite this bot:\nhttps://discordapp.com/oauth2/authorize?client_id={application_info.id}&permissions=8&scope=bot")
 
-        query = {
-            "client_id": application_info.id,
-            "scope": "+".join(scopes),
-            "permissions": permissions.value
-        }
-
-        return await ctx.send(
-            f"Link to invite this bot:\n<https://discordapp.com/oauth2/authorize?{urlencode(query, safe='+')}>"
-        )
-
-    @Feature.Command(parent="jsk", name="rtt", aliases=["ping"])
+    @Feature.Command(name="rtt", aliases=["ping"])
     async def jsk_rtt(self, ctx: ContextA):
         """
         Calculates Round-Trip Time to the API.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         message = None
 
@@ -195,11 +183,13 @@ class ManagementFeature(Feature):
 
     SLASH_COMMAND_ERROR = re.compile(r"In ((?:\d+\.[a-z]+\.?)+)")
 
-    @Feature.Command(parent="jsk", name="sync")
+    @Feature.Command(name="sync")
     async def jsk_sync(self, ctx: ContextA, *targets: str):
         """
         Sync global or guild application commands to Discord.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if not self.bot.application_id:
             await ctx.send("Cannot sync when application info not fetched")

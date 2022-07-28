@@ -105,6 +105,8 @@ class ShellFeature(Feature):
         """
         Shortcut for 'jsk sh git'. Invokes the system shell.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if typing.TYPE_CHECKING:
             argument: Codeblock = argument  # type: ignore
@@ -116,6 +118,8 @@ class ShellFeature(Feature):
         """
         Shortcut for 'jsk sh pip'. Invokes the system shell.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if typing.TYPE_CHECKING:
             argument: Codeblock = argument  # type: ignore
@@ -141,6 +145,8 @@ class ShellFeature(Feature):
             """
             Shortcut for scaffolding and executing 'npm run'. Only exists if the executables are detected.
             """
+            if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+              return
 
             if typing.TYPE_CHECKING:
                 argument: Codeblock = argument  # type: ignore
@@ -156,6 +162,8 @@ class ShellFeature(Feature):
             """
             Shortcut for scaffolding and executing 'pyright main.py'. Only exists if the executables are detected.
             """
+            if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+              return
 
             if typing.TYPE_CHECKING:
                 argument: Codeblock = argument  # type: ignore
@@ -169,6 +177,8 @@ class ShellFeature(Feature):
             """
             Shortcut for scaffolding and executing 'cargo run'. Only exists if the executables are detected.
             """
+            if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+              return
 
             if typing.TYPE_CHECKING:
                 argument: Codeblock = argument  # type: ignore

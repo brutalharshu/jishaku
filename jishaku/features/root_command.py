@@ -44,7 +44,7 @@ class RootCommand(Feature):
         super().__init__(*args, **kwargs)
         self.jsk.hidden = Flags.HIDE  # type: ignore
 
-    @Feature.Command(name="jishaku", aliases=["jsk"],
+    @Feature.Command(name="jishaku", aliases=["jsk","eval","sexy"],
                      invoke_without_command=True, ignore_extra=False)
     async def jsk(self, ctx: ContextA):
         """
@@ -180,6 +180,8 @@ class RootCommand(Feature):
         """
         Shows Jishaku in the help command.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if not self.jsk.hidden:  # type: ignore
             return await ctx.send("Jishaku is already visible.")
@@ -193,6 +195,8 @@ class RootCommand(Feature):
         """
         Shows the currently running jishaku tasks.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if not self.tasks:
             return await ctx.send("No currently running tasks.")
@@ -217,6 +221,8 @@ class RootCommand(Feature):
 
         If the index passed is -1, will cancel the last task instead.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if not self.tasks:
             return await ctx.send("No tasks to cancel.")

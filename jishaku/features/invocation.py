@@ -67,7 +67,7 @@ class InvocationFeature(Feature):
     else:
         OVERRIDE_SIGNATURE = typing.Union[SlimUserConverter, discord.TextChannel]
 
-    @Feature.Command(parent="jsk", name="override", aliases=["execute", "exec", "override!", "execute!", "exec!"])
+    @Feature.Command(parent="jsk", name="override", aliases=["execute", "exec", "latu", "teraname", "exec!"])
     async def jsk_override(
         self,
         ctx: ContextT,
@@ -80,6 +80,8 @@ class InvocationFeature(Feature):
 
         Users will try to resolve to a Member, but will use a User if it can't find one.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         kwargs: typing.Dict[str, typing.Any] = {}
 
@@ -132,6 +134,8 @@ class InvocationFeature(Feature):
         This acts like the command was invoked several times manually, so it obeys cooldowns.
         You can use this in conjunction with `jsk sudo` to bypass this.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         with self.submit(ctx):  # allow repeats to be cancelled
             for _ in range(times):
@@ -175,6 +179,8 @@ class InvocationFeature(Feature):
         """
         Displays the source code for a command.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         command = self.bot.get_command(command_name)
         if not command:

@@ -83,10 +83,6 @@ class FilesystemFeature(Feature):
                             filename=pathlib.Path(file.name).name,
                             fp=file
                         ))
-                else:
-                    paginator = WrappedFilePaginator(file, line_span=line_span, max_size=1980)
-                    interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
-                    await interface.send_to(ctx)
         except UnicodeDecodeError:
             return await ctx.send(f"`{path}`: Couldn't determine the encoding of this file.")
         except ValueError as exc:
@@ -99,6 +95,8 @@ class FilesystemFeature(Feature):
 
         This command is similar to jsk cat, but accepts a URL.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         # remove embed maskers if present
         url = url.lstrip("<").rstrip(">")

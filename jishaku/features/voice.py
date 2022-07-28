@@ -82,6 +82,8 @@ class VoiceFeature(Feature):
 
         If invoked without subcommand, relays current voice state.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.voice_check(ctx):
             return
@@ -114,6 +116,8 @@ class VoiceFeature(Feature):
         Passing a member will use that member's current voice channel.
         Passing nothing will use the author's voice channel.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.voice_check(ctx):
             return
@@ -145,6 +149,8 @@ class VoiceFeature(Feature):
         """
         Disconnects from the voice channel in this guild, if there is one.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.connected_check(ctx):
             return
@@ -162,6 +168,8 @@ class VoiceFeature(Feature):
         """
         Stops running an audio source, if there is one.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.playing_check(ctx):
             return
@@ -179,6 +187,8 @@ class VoiceFeature(Feature):
         """
         Pauses a running audio source, if there is one.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.playing_check(ctx):
             return
@@ -199,6 +209,8 @@ class VoiceFeature(Feature):
         """
         Resumes a running audio source, if there is one.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.connected_check(ctx):
             return
@@ -219,6 +231,8 @@ class VoiceFeature(Feature):
         """
         Adjusts the volume of an audio source if it is supported.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.playing_check(ctx):
             return
@@ -247,6 +261,8 @@ class VoiceFeature(Feature):
 
         Can be either a local file or an audio resource on the internet.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         if await self.connected_check(ctx):
             return

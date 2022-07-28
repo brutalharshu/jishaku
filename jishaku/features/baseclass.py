@@ -242,6 +242,8 @@ class Feature(commands.Cog):
         ctx: commands.Context
             A Context object used to derive information about this command task.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+          return
 
         self.task_count += 1
 
