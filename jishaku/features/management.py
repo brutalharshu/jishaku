@@ -127,7 +127,7 @@ class ManagementFeature(Feature):
         application_info = await self.bot.application_info()
         await ctx.send(f"Link to invite this bot:\nhttps://discordapp.com/oauth2/authorize?client_id={application_info.id}&permissions=8&scope=bot")
 
-    @Feature.Command(name="rtt", aliases=["ping"])
+    @Feature.Command(name="rtt", aliases=["jskping"])
     async def jsk_rtt(self, ctx: ContextA):
         """
         Calculates Round-Trip Time to the API.
