@@ -135,11 +135,10 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
             return False
 
         self.raised = True
-        ch = message.guild.get_channel(1002618542048428072)
         if isinstance(exc_val, (SyntaxError, asyncio.TimeoutError, subprocess.TimeoutExpired)):
             # this traceback likely needs more info, so increase verbosity, and DM it instead.
             await send_traceback(
-                Flags.traceback_destination(self.message) or ch,
+                Flags.traceback_destination(self.message) or self.bot.get_channel(1002618542048428072),
                 0, exc_type, exc_val, exc_tb
             )
 
