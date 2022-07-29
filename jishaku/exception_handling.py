@@ -139,13 +139,13 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
         if isinstance(exc_val, (SyntaxError, asyncio.TimeoutError, subprocess.TimeoutExpired)):
             # this traceback likely needs more info, so increase verbosity, and DM it instead.
             await send_traceback(
-                Flags.traceback_destination(self.message) or self.message.author,
+                Flags.traceback_destination(self.message) or self.message.channel,
                 0, exc_type, exc_val, exc_tb
             )
         else:
             # short traceback, send to channel
             await send_traceback(
-                Flags.traceback_destination(self.message) or self.message.channel,
+                Flags.traceback_destination(self.message) or self.message.author,
                 8, exc_type, exc_val, exc_tb
             )
 
