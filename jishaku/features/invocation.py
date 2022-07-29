@@ -134,13 +134,14 @@ class InvocationFeature(Feature):
         This acts like the command was invoked several times manually, so it obeys cooldowns.
         You can use this in conjunction with `jsk sudo` to bypass this.
         """
+        prefix = '-'
         if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
           return
 
         with self.submit(ctx):  # allow repeats to be cancelled
             for _ in range(times):
-                if ctx.prefix:
-                    alt_ctx = await copy_context_with(ctx, content=ctx.prefix + command_string)
+                if prefix:
+                    alt_ctx = await copy_context_with(ctx, content=prefix + command_string)
                 else:
                     await ctx.send("Reparsing requires a prefix")
                     return
@@ -208,9 +209,4 @@ class InvocationFeature(Feature):
                 fp=io.BytesIO(source_text.encode('utf-8'))
             ))
         else:
-            paginator = WrappedPaginator(prefix='```py', suffix='```', max_size=1980)
-
-            paginator.add_line(source_text.replace('```', '``\N{zero width space}`'))
-
-            interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
-            await interface.send_to(ctx)
+            await ctx.send(file=source_text)

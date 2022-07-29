@@ -83,6 +83,8 @@ class FilesystemFeature(Feature):
                             filename=pathlib.Path(file.name).name,
                             fp=file
                         ))
+                else:
+                    await ctx.send(file=file)
         except UnicodeDecodeError:
             return await ctx.send(f"`{path}`: Couldn't determine the encoding of this file.")
         except ValueError as exc:
