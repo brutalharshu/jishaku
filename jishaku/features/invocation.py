@@ -156,12 +156,6 @@ class InvocationFeature(Feature):
         Run a command timing execution and catching exceptions.
         """
 
-        if ctx.prefix:
-            alt_ctx = await copy_context_with(ctx, content=ctx.prefix + command_string)
-        else:
-            await ctx.send("Reparsing requires a prefix")
-            return
-
         if alt_ctx.command is None:
             return await ctx.send(f'Command "{alt_ctx.invoked_with}" is not found')
 
