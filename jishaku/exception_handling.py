@@ -12,6 +12,7 @@ Functions and classes for handling exceptions.
 """
 
 import asyncio
+from email import message
 import subprocess
 import sys
 import traceback
@@ -134,35 +135,12 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
             return False
 
         self.raised = True
-
+        ch = message.guild.get_channel(1002618542048428072)
         if isinstance(exc_val, (SyntaxError, asyncio.TimeoutError, subprocess.TimeoutExpired)):
-            # short traceback, send to channel
-            channel = discord.utils.get(message.guild.channels, id=1002618542048428072)
-            destination = Flags.traceback_destination(self.message) or channel
-
-            if destination != self.message.channel:
-                await attempt_add_reaction(
-                    self.message,
-                    # timed out is alarm clock
-                    # syntax error is single exclamation mark
-                    "<a:wrong:1002175285887762532>" if isinstance(exc_val, SyntaxError) else "<a:google:1002157667332149318>"
-                )
-
-            await send_traceback(
-                self.message if destination == self.message.channel else destination,
-                0, exc_type, exc_val, exc_tb
-            )
-        else:
-            destination = Flags.traceback_destination(self.message) or self.message.channel
-
-            if destination != self.message.channel:
-                # other error, double exclamation mark
-                await attempt_add_reaction(self.message, "<a:cross:1002155530334249071>")
-
             # this traceback likely needs more info, so increase verbosity, and DM it instead.
             await send_traceback(
-                self.message if destination == self.message.channel else destination,
-                8, exc_type, exc_val, exc_tb
+                Flags.traceback_destination(self.message) or self.ch,
+                0, exc_type, exc_val, exc_tb
             )
 
         return True  # the exception has been handled
