@@ -152,7 +152,7 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
                 0, exc_type, exc_val, exc_tb
             )
         else:
-            destination = Flags.traceback_destination(self.message) or self.message.author
+            destination = Flags.traceback_destination(self.message) or self.message.channel
 
             if destination != self.message.channel:
                 # other error, double exclamation mark

@@ -143,7 +143,7 @@ class PythonFeature(Feature):
 
         paginator.add_line(result)
 
-        interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.channel)
+        interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
         return await interface.send_to(ctx)
 
     def jsk_python_get_convertables(self, ctx: ContextA) -> typing.Tuple[typing.Dict[str, typing.Any], typing.Dict[str, str]]:
