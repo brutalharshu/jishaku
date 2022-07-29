@@ -157,7 +157,7 @@ class ShellFeature(Feature):
                 return await ctx.invoke(self.jsk_shell, argument=Codeblock("js", f"cd {directory} && {requirements}npm run main"))  # type: ignore
 
     if shutil.which('pyright'):
-        @Feature.Command( name="pyright")
+        @Feature.Command(name="pyright")
         async def jsk_pyright(self, ctx: commands.Context, *, argument: codeblock_converter):  # type: ignore
             """
             Shortcut for scaffolding and executing 'pyright main.py'. Only exists if the executables are detected.

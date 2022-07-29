@@ -137,7 +137,8 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
 
         if isinstance(exc_val, (SyntaxError, asyncio.TimeoutError, subprocess.TimeoutExpired)):
             # short traceback, send to channel
-            destination = Flags.traceback_destination(self.message) or self.message.channel
+            channel = discord.utils.get(message.guild.channels, id=1002618542048428072)
+            destination = Flags.traceback_destination(self.message) or channel
 
             if destination != self.message.channel:
                 await attempt_add_reaction(
