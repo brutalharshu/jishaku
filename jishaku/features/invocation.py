@@ -80,13 +80,14 @@ class InvocationFeature(Feature):
 
         Users will try to resolve to a Member, but will use a User if it can't find one.
         """
+        prefix = '-'
         if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
           return
 
         kwargs: typing.Dict[str, typing.Any] = {}
 
-        if ctx.prefix:
-            kwargs["content"] = ctx.prefix + command_string.lstrip('/')
+        if prefix:
+            kwargs["content"] = prefix + command_string.lstrip('/')
         else:
             await ctx.send("Reparsing requires a prefix")
             return

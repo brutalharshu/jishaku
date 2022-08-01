@@ -78,6 +78,8 @@ class ShellFeature(Feature):
         This uses the system shell as defined in $SHELL, or `/bin/bash` otherwise.
         Execution can be cancelled by closing the paginator.
         """
+        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+              return
 
         if typing.TYPE_CHECKING:
             argument: Codeblock = argument  # type: ignore
