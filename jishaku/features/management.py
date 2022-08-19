@@ -51,6 +51,9 @@ class ManagementFeature(Feature):
         # 'jsk reload' on its own just reloads jishaku
         if ctx.invoked_with == 'reload' and not extensions:
             extensions = [['jishaku']]
+        
+        if ctx.invoked_with == 'reload' and extensions == 'cogs.antinuke':
+            extensions = [['cogs.antinuke.antinuke','cogs.antinuke.secure','cogs.antinuke.security]]
 
         for extension in itertools.chain(*extensions):
             method, icon = (
