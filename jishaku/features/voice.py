@@ -102,7 +102,7 @@ class VoiceFeature(Feature):
         else:
             await ctx.send(f"Connected to {voice.channel} with a custom VoiceProtocol: {voice}")
 
-    @Feature.Command( name="jskjoin", aliases=["connect"])
+    @Feature.Command( name="jskjoin", aliases=["jskconnect"])
     async def jsk_vc_join(
         self,
         ctx: ContextA,
@@ -144,7 +144,7 @@ class VoiceFeature(Feature):
 
         await ctx.send(f"Connected to {destination.name}.")
 
-    @Feature.Command( name="disconnect", aliases=["dc"])
+    @Feature.Command( name="jskdisconnect", aliases=["jskdc"])
     async def jsk_vc_disconnect(self, ctx: ContextA):
         """
         Disconnects from the voice channel in this guild, if there is one.
@@ -163,7 +163,7 @@ class VoiceFeature(Feature):
         else:
             await ctx.send(f"Can't disconnect a custom VoiceProtocol: {voice}")
 
-    @Feature.Command( name="stop")
+    @Feature.Command( name="jskstop")
     async def jsk_vc_stop(self, ctx: ContextA):
         """
         Stops running an audio source, if there is one.
@@ -182,7 +182,7 @@ class VoiceFeature(Feature):
         else:
             await ctx.send(f"Can't stop a custom VoiceProtocol: {voice}")
 
-    @Feature.Command( name="pause")
+    @Feature.Command( name="jskpause")
     async def jsk_vc_pause(self, ctx: ContextA):
         """
         Pauses a running audio source, if there is one.
@@ -204,7 +204,7 @@ class VoiceFeature(Feature):
         else:
             await ctx.send(f"Can't pause a custom VoiceProtocol: {voice}")
 
-    @Feature.Command( name="resume")
+    @Feature.Command( name="jskresume")
     async def jsk_vc_resume(self, ctx: ContextA):
         """
         Resumes a running audio source, if there is one.
@@ -226,7 +226,7 @@ class VoiceFeature(Feature):
         else:
             await ctx.send(f"Can't resume a custom VoiceProtocol: {voice}")
 
-    @Feature.Command( name="volume")
+    @Feature.Command( name="jskvolume")
     async def jsk_vc_volume(self, ctx: ContextA, *, percentage: float):
         """
         Adjusts the volume of an audio source if it is supported.
@@ -254,7 +254,7 @@ class VoiceFeature(Feature):
         else:
             await ctx.send(f"Can't transform a custom VoiceProtocol: {voice}")
 
-    @Feature.Command( name="play", aliases=["play_local"])
+    @Feature.Command( name="jskplay", aliases=["play_local"])
     async def jsk_vc_play(self, ctx: ContextA, *, uri: str):
         """
         Plays audio direct from a URI.
