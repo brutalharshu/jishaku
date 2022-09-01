@@ -40,6 +40,9 @@ class FilesystemFeature(Feature):
 
         Lines and linespans are supported by adding '#L12' or '#L12-14' etc to the end of the filename.
         """
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         match = self.__cat_line_regex.search(argument)
 
@@ -97,8 +100,9 @@ class FilesystemFeature(Feature):
 
         This command is similar to jsk cat, but accepts a URL.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         # remove embed maskers if present
         url = url.lstrip("<").rstrip(">")
