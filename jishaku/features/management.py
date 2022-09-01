@@ -41,8 +41,9 @@ class ManagementFeature(Feature):
 
         Reports any extensions that failed to load.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         extensions: typing.Iterable[typing.List[str]] = extensions  # type: ignore
 
@@ -81,8 +82,9 @@ class ManagementFeature(Feature):
 
         Reports any extensions that failed to unload.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         extensions: typing.Iterable[typing.List[str]] = extensions  # type: ignore
 
@@ -110,8 +112,9 @@ class ManagementFeature(Feature):
         """
         Logs this bot out.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         await ctx.send(f"Logging out now <:bot:1002153704645988372>")
         await ctx.bot.close()
@@ -132,8 +135,9 @@ class ManagementFeature(Feature):
         """
         Calculates Round-Trip Time to the API.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         message = None
 
@@ -188,8 +192,9 @@ class ManagementFeature(Feature):
         """
         Sync global or guild application commands to Discord.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+         ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if not self.bot.application_id:
             await ctx.send("Cannot sync when application info not fetched")
