@@ -167,8 +167,9 @@ class RootCommand(Feature):
         """
         Shows the currently running jishaku tasks.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if not self.tasks:
             return await ctx.send("No currently running tasks.")
@@ -193,9 +194,9 @@ class RootCommand(Feature):
 
         If the index passed is -1, will cancel the last task instead.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
-
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
         if not self.tasks:
             return await ctx.send("No tasks to cancel.")
 
