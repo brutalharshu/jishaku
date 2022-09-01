@@ -53,8 +53,9 @@ class YouTubeFeature(Feature):
         """
         Plays audio from youtube_dl-compatible sources.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if await VoiceFeature.connected_check(ctx):
             return
