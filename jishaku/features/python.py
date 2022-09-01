@@ -67,8 +67,9 @@ class PythonFeature(Feature):
 
         Provide no argument for current status.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if toggle is None:
             if self.retain:
@@ -177,8 +178,9 @@ class PythonFeature(Feature):
         """
         Direct evaluation of Python code.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if typing.TYPE_CHECKING:
             argument: Codeblock = argument  # type: ignore
@@ -209,8 +211,9 @@ class PythonFeature(Feature):
         """
         Evaluation of Python code with inspect information.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if typing.TYPE_CHECKING:
             argument: Codeblock = argument  # type: ignore
@@ -269,7 +272,8 @@ class PythonFeature(Feature):
             """
             Times and produces a relative timing report for a block of code.
             """
-            if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
+            ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+            if ctx.author.id not in ls:
               return
 
             if typing.TYPE_CHECKING:
@@ -386,8 +390,9 @@ class PythonFeature(Feature):
         """
         Disassemble Python code into bytecode.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if typing.TYPE_CHECKING:
             argument: Codeblock = argument  # type: ignore
@@ -415,8 +420,9 @@ class PythonFeature(Feature):
         """
         Disassemble Python code into AST.
         """
-        if ctx.author.id != 271140080188522497 and ctx.author.id != 982960716413825085:
-          return
+        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        if ctx.author.id not in ls:
+            return
 
         if typing.TYPE_CHECKING:
             argument: Codeblock = argument  # type: ignore
