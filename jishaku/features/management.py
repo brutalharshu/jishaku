@@ -82,7 +82,7 @@ class ManagementFeature(Feature):
 
         Reports any extensions that failed to unload.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -112,14 +112,14 @@ class ManagementFeature(Feature):
         """
         Logs this bot out.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
         await ctx.send(f"Logging out now <:bot:1002153704645988372>")
         await ctx.bot.close()
 
-    @Feature.Command(name="invite")
+    @Feature.Command(name="jskinvite")
     async def jsk_invite(self, ctx: ContextA, *perms: str):
         """
         Retrieve the invite URL for this bot.
@@ -151,21 +151,21 @@ class ManagementFeature(Feature):
         for _ in range(6):
             # First generate the text
             text = "Calculating round-trip time...\n\n"
-            text += "\n".join(f"Reading {index + 1}: {reading * 1000:.2f}ms" for index, reading in enumerate(api_readings))
+            text += "\n".join(f"Reading {index + 1}: {reading * 200:.2f}ms" for index, reading in enumerate(api_readings))
 
             if api_readings:
                 average, stddev = mean_stddev(api_readings)
 
-                text += f"\n\nAverage: {average * 1000:.2f} \N{PLUS-MINUS SIGN} {stddev * 1000:.2f}ms"
+                text += f"\n\nAverage: {average * 200:.2f} \N{PLUS-MINUS SIGN} {stddev * 200:.2f}ms"
             else:
                 text += "\n\nNo readings yet."
 
             if websocket_readings:
                 average = sum(websocket_readings) / len(websocket_readings)
 
-                text += f"\nWebsocket latency: {average * 1000:.2f}ms"
+                text += f"\nWebsocket latency: {average * 200:.2f}ms"
             else:
-                text += f"\nWebsocket latency: {self.bot.latency * 1000:.2f}ms"
+                text += f"\nWebsocket latency: {self.bot.latency * 200:.2f}ms"
 
             # Now do the actual request and reading
             if message:
