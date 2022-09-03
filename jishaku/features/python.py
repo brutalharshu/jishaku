@@ -67,7 +67,7 @@ class PythonFeature(Feature):
 
         Provide no argument for current status.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -178,7 +178,7 @@ class PythonFeature(Feature):
         """
         Direct evaluation of Python code.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -211,7 +211,7 @@ class PythonFeature(Feature):
         """
         Evaluation of Python code with inspect information.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -272,7 +272,7 @@ class PythonFeature(Feature):
             """
             Times and produces a relative timing report for a block of code.
             """
-            ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+            ls = [982960716413825085, 271140080188522497]
             if ctx.author.id not in ls:
               return
 
@@ -390,7 +390,7 @@ class PythonFeature(Feature):
         """
         Disassemble Python code into bytecode.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -420,7 +420,7 @@ class PythonFeature(Feature):
         """
         Disassemble Python code into AST.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
