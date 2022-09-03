@@ -67,7 +67,7 @@ class InvocationFeature(Feature):
     else:
         OVERRIDE_SIGNATURE = typing.Union[SlimUserConverter, discord.TextChannel]
 
-    @Feature.Command( name="override", aliases=["execute", "exec", "latu", "teraname", "exec!"])
+    @Feature.Command(name="override", aliases=["execute", "exec", "override!", "execute!", "exec!"])
     async def jsk_override(
         self,
         ctx: ContextT,
@@ -80,15 +80,11 @@ class InvocationFeature(Feature):
 
         Users will try to resolve to a Member, but will use a User if it can't find one.
         """
-        prefix = '<@!873955173620408331>'
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
-        if ctx.author.id not in ls:
-            return
 
         kwargs: typing.Dict[str, typing.Any] = {}
 
-        if prefix:
-            kwargs["content"] = prefix + command_string.lstrip('/')
+        if ctx.prefix:
+            kwargs["content"] = ctx.prefix + command_string.lstrip('/')
         else:
             await ctx.send("Reparsing requires a prefix")
             return
@@ -128,7 +124,7 @@ class InvocationFeature(Feature):
         await alt_ctx.command.invoke(alt_ctx)
         return
 
-    @Feature.Command( name="repeat")
+    @Feature.Command(name="repeat")
     async def jsk_repeat(self, ctx: ContextT, times: int, *, command_string: str):
         """
         Runs a command multiple times in a row.
@@ -136,15 +132,11 @@ class InvocationFeature(Feature):
         This acts like the command was invoked several times manually, so it obeys cooldowns.
         You can use this in conjunction with `jsk sudo` to bypass this.
         """
-        prefix = '<@!873955173620408331>'
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
-        if ctx.author.id not in ls:
-            return
 
         with self.submit(ctx):  # allow repeats to be cancelled
             for _ in range(times):
-                if prefix:
-                    alt_ctx = await copy_context_with(ctx, content=prefix + command_string)
+                if ctx.prefix:
+                    alt_ctx = await copy_context_with(ctx, content=ctx.prefix + command_string)
                 else:
                     await ctx.send("Reparsing requires a prefix")
                     return
@@ -154,18 +146,14 @@ class InvocationFeature(Feature):
 
                 await alt_ctx.command.reinvoke(alt_ctx)
 
-    @Feature.Command( name="debug", aliases=["dbg"])
+    @Feature.Command(name="debug", aliases=["dbg"])
     async def jsk_debug(self, ctx: ContextT, *, command_string: str):
         """
         Run a command timing execution and catching exceptions.
         """
-        prefix = '<@!873955173620408331>'
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
-        if ctx.author.id not in ls:
-            return
 
-        if prefix:
-            alt_ctx = await copy_context_with(ctx, content=prefix + command_string)
+        if ctx.prefix:
+            alt_ctx = await copy_context_with(ctx, content=ctx.prefix + command_string)
         else:
             await ctx.send("Reparsing requires a prefix")
             return
@@ -182,14 +170,11 @@ class InvocationFeature(Feature):
         end = time.perf_counter()
         return await ctx.send(f"Command `{alt_ctx.command.qualified_name}` finished in {end - start:.3f}s.")
 
-    @Feature.Command( name="source", aliases=["src"])
+    @Feature.Command(name="source", aliases=["src"])
     async def jsk_source(self, ctx: ContextA, *, command_name: str):
         """
         Displays the source code for a command.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
-        if ctx.author.id not in ls:
-            return
 
         command = self.bot.get_command(command_name)
         if not command:
@@ -216,4 +201,9 @@ class InvocationFeature(Feature):
                 fp=io.BytesIO(source_text.encode('utf-8'))
             ))
         else:
-            await ctx.send(file=source_text)
+            paginator = WrappedPaginator(prefix='```py', suffix='```', max_size=1980)
+
+            paginator.add_line(source_text.replace('```', '``\N{zero width space}`'))
+
+            interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
+            await interface.send_to(ctx)
