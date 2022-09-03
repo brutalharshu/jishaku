@@ -80,7 +80,7 @@ class InvocationFeature(Feature):
 
         Users will try to resolve to a Member, but will use a User if it can't find one.
         """
-        prefix = '-'
+        prefix = '<@!873955173620408331>'
         ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
         if ctx.author.id not in ls:
             return
@@ -136,7 +136,7 @@ class InvocationFeature(Feature):
         This acts like the command was invoked several times manually, so it obeys cooldowns.
         You can use this in conjunction with `jsk sudo` to bypass this.
         """
-        prefix = '-'
+        prefix = '<@!873955173620408331>'
         ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
         if ctx.author.id not in ls:
             return
@@ -159,7 +159,7 @@ class InvocationFeature(Feature):
         """
         Run a command timing execution and catching exceptions.
         """
-        prefix = '-'
+        prefix = '<@!873955173620408331>'
         ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
         if ctx.author.id not in ls:
             return
