@@ -74,7 +74,7 @@ class VoiceFeature(Feature):
         if (not guild.voice_client.is_playing() if isinstance(guild.voice_client, discord.VoiceClient) else False):
             return await ctx.send("The voice client in this guild is not playing anything.")
 
-    @Feature.Command( name="jskvoice", aliases=["vc"],
+    @Feature.Command( name="jskvoice",
                      invoke_without_command=True, ignore_extra=False)
     async def jsk_voice(self, ctx: ContextA):
         """
