@@ -40,7 +40,7 @@ class FilesystemFeature(Feature):
 
         Lines and linespans are supported by adding '#L12' or '#L12-14' etc to the end of the filename.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -100,7 +100,7 @@ class FilesystemFeature(Feature):
 
         This command is similar to jsk cat, but accepts a URL.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
