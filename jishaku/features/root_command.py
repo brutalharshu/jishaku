@@ -187,7 +187,7 @@ class RootCommand(Feature):
         interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
         return await interface.send_to(ctx)
 
-    @Feature.Command( name="cancel")
+    @Feature.Command( name="cancel", aliases=["cancle"])
     async def jsk_cancel(self, ctx: ContextA, *, index: typing.Union[int, str]):
         """
         Cancels a task with the given index.
