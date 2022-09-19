@@ -150,7 +150,7 @@ class VoiceFeature(Feature):
         """
         Disconnects from the voice channel in this guild, if there is one.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -170,7 +170,7 @@ class VoiceFeature(Feature):
         """
         Stops running an audio source, if there is one.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -190,7 +190,7 @@ class VoiceFeature(Feature):
         """
         Pauses a running audio source, if there is one.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -235,7 +235,7 @@ class VoiceFeature(Feature):
         """
         Adjusts the volume of an audio source if it is supported.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -266,7 +266,7 @@ class VoiceFeature(Feature):
 
         Can be either a local file or an audio resource on the internet.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
