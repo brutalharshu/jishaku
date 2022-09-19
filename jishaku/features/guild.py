@@ -77,7 +77,7 @@ class GuildFeature(Feature):
         This accepts a channel, and either a member or a list of roles.
         It calculates permissions the same way Discord does, while keeping track of the source.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
