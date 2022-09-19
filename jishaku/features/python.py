@@ -178,7 +178,7 @@ class PythonFeature(Feature):
         """
         Direct evaluation of Python code.
         """
-        ls = [982960716413825085, 271140080188522497,968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
