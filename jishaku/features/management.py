@@ -41,7 +41,7 @@ class ManagementFeature(Feature):
 
         Reports any extensions that failed to load.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -135,7 +135,7 @@ class ManagementFeature(Feature):
         """
         Calculates Round-Trip Time to the API.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
@@ -192,7 +192,7 @@ class ManagementFeature(Feature):
         """
         Sync global or guild application commands to Discord.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
