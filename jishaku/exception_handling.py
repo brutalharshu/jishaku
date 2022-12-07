@@ -117,7 +117,7 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
 
     async def __aenter__(self):
         self.handle = self.loop.create_task(do_after_sleep(2, attempt_add_reaction, self.message,
-                                                           "<a:arrow:1002174395617386588>"))
+                                                           "<:rightemoji:1049194797568622592>"))
         return self
 
     async def __aexit__(
@@ -131,7 +131,7 @@ class ReplResponseReactor:  # pylint: disable=too-few-public-methods
 
         # no exception, check mark
         if not exc_val:
-            await attempt_add_reaction(self.message, "<a:success:1002155523640152124>")
+            await attempt_add_reaction(self.message, "<:tickemoji:1049213090505429012>")
             return False
 
         self.raised = True
