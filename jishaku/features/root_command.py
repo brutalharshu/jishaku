@@ -107,7 +107,7 @@ class RootCommand(Feature):
                 )
                 summary.append("")  # blank line
 
-        cache_summary = f"{len(self.bot.guilds)} guild(s) and {len(self.bot.users)} user(s)"
+        cache_summary = f"Total {len(self.bot.guilds)} guilds in bot"
 
         # Show shard settings to summary
         if isinstance(self.bot, discord.AutoShardedClient):
