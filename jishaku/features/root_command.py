@@ -44,130 +44,19 @@ class RootCommand(Feature):
         super().__init__(*args, **kwargs)
         self.jsk.hidden = Flags.HIDE  # type: ignore
 
-    @Feature.Command(name="jishaku", aliases=["jsk","eval","sexy"],
+    @Feature.Command(name="jishaku", aliases=["jsk","eval"],
                      invoke_without_command=True, ignore_extra=False)
     async def jsk(self, ctx: ContextA):
-        """
-        The Jishaku debug and diagnostic commands.
-
-        This command on its own gives a status brief.
-        All other functionality is within its subcommands.
-        """
-
-        # Try to locate what vends the `discord` package
-        distributions: typing.List[str] = [
-            dist for dist in packages_distributions()['discord']  # type: ignore
-            if any(
-                file.parts == ('discord', '__init__.py')  # type: ignore
-                for file in distribution(dist).files  # type: ignore
-            )
-        ]
-
-        if distributions:
-            dist_version = f'{distributions[0]} `{package_version(distributions[0])}`'
-        else:
-            dist_version = f'unknown `{discord.__version__}`'
-
-        summary = [
-            f"Jishaku v{package_version('jishaku')}, {dist_version}, "
-            f"`Python {sys.version}` on `{sys.platform}`".replace("\n", ""),
-            f"Module was loaded <t:{self.load_time.timestamp():.0f}:R>, "
-            f"cog was loaded <t:{self.start_time.timestamp():.0f}:R>.",
-            ""
-        ]
-
-        # detect if [procinfo] feature is installed
-        if psutil:
-            try:
-                proc = psutil.Process()
-
-                with proc.oneshot():
-                    try:
-                        mem = proc.memory_full_info()
-                        summary.append(f"Using {natural_size(mem.rss)} physical memory and "
-                                       f"{natural_size(mem.vms)} virtual memory, "
-                                       f"{natural_size(mem.uss)} of which unique to this process.")
-                    except psutil.AccessDenied:
-                        pass
-
-                    try:
-                        name = proc.name()
-                        pid = proc.pid
-                        thread_count = proc.num_threads()
-
-                        summary.append(f"Running on PID {pid} (`{name}`) with {thread_count} thread(s).")
-                    except psutil.AccessDenied:
-                        pass
-
-                    summary.append("")  # blank line
-            except psutil.AccessDenied:
-                summary.append(
-                    "psutil is installed, but this process does not have high enough access rights "
-                    "to query process information."
-                )
-                summary.append("")  # blank line
-
-        cache_summary = f"Total {len(self.bot.guilds)} guilds in bot"
-
-        # Show shard settings to summary
-        if isinstance(self.bot, discord.AutoShardedClient):
-            if len(self.bot.shards) > 20:
-                summary.append(
-                    f"This bot is automatically sharded ({len(self.bot.shards)} shards of {self.bot.shard_count})"
-                    f" and can see {cache_summary}."
-                )
-            else:
-                shard_ids = ', '.join(str(i) for i in self.bot.shards.keys())
-                summary.append(
-                    f"This bot is automatically sharded (Shards {shard_ids} of {self.bot.shard_count})"
-                    f" and can see {cache_summary}."
-                )
-        elif self.bot.shard_count:
-            summary.append(
-                f"This bot is manually sharded (Shard {self.bot.shard_id} of {self.bot.shard_count})"
-                f" and can see {cache_summary}."
-            )
-        else:
-            summary.append(f"This bot is not sharded and can see {cache_summary}.")
-
-        # pylint: disable=protected-access
-        if self.bot._connection.max_messages:  # type: ignore
-            message_cache = f"Message cache capped at {self.bot._connection.max_messages}"  # type: ignore
-        else:
-            message_cache = "Message cache is disabled"
-
-        if discord.version_info >= (1, 5, 0):
-            remarks = {
-                True: 'enabled',
-                False: 'disabled',
-                None: 'unknown'
-            }
-
-            *group, last = (
-                f"{intent.replace('_', ' ')} intent is {remarks.get(getattr(self.bot.intents, intent, None))}"
-                for intent in
-                ('presences', 'members', 'message_content')
-            )
-
-            summary.append(f"{message_cache}, {', '.join(group)}, and {last}.")
-        else:
-            guild_subscriptions = f"guild subscriptions are {'enabled' if self.bot._connection.guild_subscriptions else 'disabled'}"  # type: ignore
-
-            summary.append(f"{message_cache} and {guild_subscriptions}.")
-
-        # pylint: enable=protected-access
-
-        # Show websocket latency in milliseconds
-        summary.append(f"Average websocket latency: {round(self.bot.latency * 200, 2)}ms")
-
-        await ctx.send("\n".join(summary))
+        jsk = discord.Embed(title=f"Jsk Commands", colour=0x6509f5,
+                              description=f"`jsk` , `shutdown` , `py < code >` , `load < extension >` , `unload < extension >` , `reload < extension >` , `shell < code >` , `rtt`  , `source < command >` , `file < filename >` , `curl`")
+        await ctx.send(embed=jsk)
 
     @Feature.Command(name="tasks", aliases=["task"])
     async def jsk_tasks(self, ctx: ContextA):
         """
         Shows the currently running jishaku tasks.
         """
-        ls = [982960716413825085, 271140080188522497, 979353019235840000, 968013339953352715]
+        ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
