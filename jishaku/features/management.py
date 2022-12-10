@@ -55,9 +55,9 @@ class ManagementFeature(Feature):
 
         for extension in itertools.chain(*extensions):
             method, icon = (
-                (self.bot.reload_extension, "<:pln:1002153692268593173>")
+                (self.bot.reload_extension, "<:dotemoji:1049225136068382750>")
                 if extension in self.bot.extensions else
-                (self.bot.load_extension, "<:lopn:1002153688812490842>")
+                (self.bot.load_extension, "<:dotemoji:1049225136068382750>")
             )
 
             try:
@@ -89,7 +89,7 @@ class ManagementFeature(Feature):
         extensions: typing.Iterable[typing.List[str]] = extensions  # type: ignore
 
         paginator = commands.Paginator(prefix='', suffix='')
-        icon = "<:Info:1002155559098781787>"
+        icon = "<:lockemoji:1049330148048113684>"
 
         for extension in itertools.chain(*extensions):
             try:
@@ -115,20 +115,9 @@ class ManagementFeature(Feature):
         ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
-
-        await ctx.send(f"Logging out now <:bot:1002153704645988372>")
+        
+        await ctx.send((embed=discord.Embed(description=f"I'm logging out now <:botemoji:1049263263315148840>", color=0x2f3136)
         await ctx.bot.close()
-
-    @Feature.Command(name="jskinvite")
-    async def jsk_invite(self, ctx: ContextA, *perms: str):
-        """
-        Retrieve the invite URL for this bot.
-
-        If the names of permissions are provided, they are requested as part of the invite.
-        """
-
-        application_info = await self.bot.application_info()
-        await ctx.send(f"Link to invite this bot:\nhttps://discordapp.com/oauth2/authorize?client_id={application_info.id}&permissions=8&scope=bot")
 
     @Feature.Command(name="rtt", aliases=["jskping"])
     async def jsk_rtt(self, ctx: ContextA):
@@ -156,16 +145,16 @@ class ManagementFeature(Feature):
             if api_readings:
                 average, stddev = mean_stddev(api_readings)
 
-                text += f"\n\nAverage: {average * 200:.2f} \N{PLUS-MINUS SIGN} {stddev * 200:.2f}ms"
+                text += f"\n\nAverage: {average * 200:.2f} \N{PLUS-MINUS SIGN} {stddev * 500:.2f}ms"
             else:
                 text += "\n\nNo readings yet."
 
             if websocket_readings:
                 average = sum(websocket_readings) / len(websocket_readings)
 
-                text += f"\nWebsocket latency: {average * 200:.2f}ms"
+                text += f"\nWebsocket latency: {average * 500:.2f}ms"
             else:
-                text += f"\nWebsocket latency: {self.bot.latency * 200:.2f}ms"
+                text += f"\nWebsocket latency: {self.bot.latency * 500:.2f}ms"
 
             # Now do the actual request and reading
             if message:
@@ -309,9 +298,9 @@ class ManagementFeature(Feature):
                     paginator.add_line(f"\N{WARNING SIGN} Global: {error_text}", empty=True)
             else:
                 if guild:
-                    paginator.add_line(f"\N{SATELLITE ANTENNA} `{guild}` Synced {len(synced)} guild commands", empty=True)
+                    paginator.add_line(f"<:tickemoji:1049213090505429012> `{guild}` Synced {len(synced)} guild commands", empty=True)
                 else:
-                    paginator.add_line(f"\N{SATELLITE ANTENNA} Synced {len(synced)} global commands", empty=True)
+                    paginator.add_line(f"<:tickemoji:1049213090505429012> Synced {len(synced)} global commands", empty=True)
 
         for page in paginator.pages:
             await ctx.send(page)
