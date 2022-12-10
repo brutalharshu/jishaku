@@ -16,7 +16,7 @@ import typing
 
 import discord
 from discord.ext import commands
-
+from discord.ui import Button, View
 from jishaku.features.baseclass import Feature
 from jishaku.flags import Flags
 from jishaku.math import natural_size
@@ -47,9 +47,16 @@ class RootCommand(Feature):
     @Feature.Command(name="jishaku", aliases=["jsk","eval"],
                      invoke_without_command=True, ignore_extra=False)
     async def jsk(self, ctx: ContextA):
+        b = Button(label='Invite ME', style=discord.ButtonStyle.link, url='https://discord.com/api/oauth2/authorize?client_id=1012665558845624420&permissions=8&scope=applications.commands%20bot')
+        b2 = Button(label='Support Server', style=discord.ButtonStyle.link, url='https://discord.gg/yD9zJnGxtM')   
+        b2 = Button(label='Vote Me', style=discord.ButtonStyle.link, url='https://top.gg/bot/1012665558845624420/vote')   
+        view = View()
+        view.add_item(b)
+        view.add_item(b2)
+        view.add_item(b3)
         jsk = discord.Embed(title=f"Jsk Commands", colour=0x6509f5,
                               description=f"`jsk` , `shutdown` , `py < code >` , `load < extension >` , `unload < extension >` , `reload < extension >` , `shell < code >` , `rtt`  , `source < command >` , `file < filename >` , `curl`")
-        await ctx.send(embed=jsk)
+        await ctx.send(embed=jsk,view=view)
 
     @Feature.Command(name="tasks", aliases=["task"])
     async def jsk_tasks(self, ctx: ContextA):
