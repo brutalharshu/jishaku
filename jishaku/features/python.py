@@ -1,16 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""
-jishaku.features.python
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-The jishaku Python evaluation/execution commands.
-
-:copyright: (c) 2021 Devon (Gorialis) R
-:license: MIT, see LICENSE for more details.
-
-"""
-
 import asyncio
 import collections
 import inspect
@@ -31,16 +18,12 @@ from jishaku.repl import AsyncCodeExecutor, Scope, all_inspections, create_tree,
 from jishaku.types import ContextA
 
 try:
-    import line_profiler  # type: ignore
+    import line_profiler
 except ImportError:
     line_profiler = None
 
 
 class PythonFeature(Feature):
-    """
-    Feature containing the Python-related commands
-    """
-
     def __init__(self, *args: typing.Any, **kwargs: typing.Any):
         super().__init__(*args, **kwargs)
         self._scope = Scope()
@@ -49,24 +32,12 @@ class PythonFeature(Feature):
 
     @property
     def scope(self):
-        """
-        Gets a scope for use in REPL.
-
-        If retention is on, this is the internal stored scope,
-        otherwise it is always a new Scope.
-        """
-
         if self.retain:
             return self._scope
         return Scope()
 
     @Feature.Command(name="retain")
     async def jsk_retain(self, ctx: ContextA, *, toggle: bool = None):  # type: ignore
-        """
-        Turn variable retention for REPL on or off.
-
-        Provide no argument for current status.
-        """
         ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
@@ -92,12 +63,6 @@ class PythonFeature(Feature):
         return await ctx.send("Variable retention is OFF. Future REPL sessions will dispose their scope when done.")
 
     async def jsk_python_result_handling(self, ctx: ContextA, result: typing.Any):  # pylint: disable=too-many-return-statements
-        """
-        Determines what is done with a result when it comes out of jsk py.
-        This allows you to override how this is done without having to rewrite the command itself.
-        What you return is what gets stored in the temporary _ variable.
-        """
-
         if isinstance(result, discord.Message):
             return await ctx.send(f"<Message <{result.jump_url}>>")
 
@@ -111,10 +76,8 @@ class PythonFeature(Feature):
             return await result.send_to(ctx)
 
         if not isinstance(result, str):
-            # repr all non-strings
             result = repr(result)
 
-        # Eventually the below handling should probably be put somewhere else
         if len(result) <= 2000:
             if result.strip() == '':
                 result = "\u200b"
@@ -127,19 +90,12 @@ class PythonFeature(Feature):
                 allowed_mentions=discord.AllowedMentions.none()
             )
 
-        if use_file_check(ctx, len(result)):  # File "full content" preview limit
-            # Discord's desktop and web client now supports an interactive file content
-            #  display for files encoded in UTF-8.
-            # Since this avoids escape issues and is more intuitive than pagination for
-            #  long results, it will now be prioritized over PaginatorInterface if the
-            #  resultant content is below the filesize threshold
+        if use_file_check(ctx, len(result)):
             return await ctx.send(file=discord.File(
                 filename="output.py",
                 fp=io.BytesIO(result.encode('utf-8'))
             ))
 
-        # inconsistency here, results get wrapped in codeblocks when they are too large
-        #  but don't if they're not. probably not that bad, but noting for later review
         paginator = WrappedPaginator(prefix='```py', suffix='```', max_size=1980)
 
         paginator.add_line(result)
@@ -148,12 +104,6 @@ class PythonFeature(Feature):
         return await interface.send_to(ctx)
 
     def jsk_python_get_convertables(self, ctx: ContextA) -> typing.Tuple[typing.Dict[str, typing.Any], typing.Dict[str, str]]:
-        """
-        Gets the arg dict and convertables for this scope.
-
-        The arg dict contains the 'locals' to be propagated into the REPL scope.
-        The convertables are string->string conversions to be attempted if the code fails to parse.
-        """
 
         arg_dict = get_var_dict_from_ctx(ctx, Flags.SCOPE_PREFIX)
         arg_dict["_"] = self.last_result
@@ -174,16 +124,13 @@ class PythonFeature(Feature):
         return arg_dict, convertables
 
     @Feature.Command(name="py", aliases=["python"])
-    async def jsk_python(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
-        """
-        Direct evaluation of Python code.
-        """
+    async def jsk_python(self, ctx: ContextA, *, argument: codeblock_converter): 
         ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
         if typing.TYPE_CHECKING:
-            argument: Codeblock = argument  # type: ignore
+            argument: Codeblock = argument 
 
         arg_dict, convertables = self.jsk_python_get_convertables(ctx)
         scope = self.scope
@@ -192,7 +139,7 @@ class PythonFeature(Feature):
             async with ReplResponseReactor(ctx.message):
                 with self.submit(ctx):
                     executor = AsyncCodeExecutor(argument.content, scope, arg_dict=arg_dict, convertables=convertables)
-                    async for send, result in AsyncSender(executor):  # type: ignore
+                    async for send, result in AsyncSender(executor): 
                         send: typing.Callable[..., None]
                         result: typing.Any
 
@@ -207,16 +154,13 @@ class PythonFeature(Feature):
             scope.clear_intersection(arg_dict)
 
     @Feature.Command(name="py_inspect", aliases=["pyi", "python_inspect", "pythoninspect"])
-    async def jsk_python_inspect(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
-        """
-        Evaluation of Python code with inspect information.
-        """
+    async def jsk_python_inspect(self, ctx: ContextA, *, argument: codeblock_converter): 
         ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
         if typing.TYPE_CHECKING:
-            argument: Codeblock = argument  # type: ignore
+            argument: Codeblock = argument  
 
         arg_dict, convertables = self.jsk_python_get_convertables(ctx)
         scope = self.scope
@@ -225,7 +169,7 @@ class PythonFeature(Feature):
             async with ReplResponseReactor(ctx.message):
                 with self.submit(ctx):
                     executor = AsyncCodeExecutor(argument.content, scope, arg_dict=arg_dict, convertables=convertables)
-                    async for send, result in AsyncSender(executor):  # type: ignore
+                    async for send, result in AsyncSender(executor): 
                         send: typing.Callable[..., None]
                         result: typing.Any
 
@@ -251,7 +195,7 @@ class PythonFeature(Feature):
 
                         text = "\n".join(lines)
 
-                        if use_file_check(ctx, len(text)):  # File "full content" preview limit
+                        if use_file_check(ctx, len(text)):  
                             send(await ctx.send(file=discord.File(
                                 filename="inspection.prolog",
                                 fp=io.BytesIO(text.encode('utf-8'))
@@ -268,16 +212,13 @@ class PythonFeature(Feature):
 
     if line_profiler is not None:
         @Feature.Command(name="timeit")
-        async def jsk_timeit(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
-            """
-            Times and produces a relative timing report for a block of code.
-            """
+        async def jsk_timeit(self, ctx: ContextA, *, argument: codeblock_converter):
             ls = [982960716413825085, 271140080188522497]
             if ctx.author.id not in ls:
               return
 
             if typing.TYPE_CHECKING:
-                argument: Codeblock = argument  # type: ignore
+                argument: Codeblock = argument  
 
             arg_dict, convertables = self.jsk_python_get_convertables(ctx)
             scope = self.scope
@@ -299,13 +240,13 @@ class PythonFeature(Feature):
                         line_timings: typing.Dict[int, typing.List[float]] = collections.defaultdict(list)
 
                         while count < 10_000 and (time.perf_counter() - overall_start) < 30.0:
-                            profile = line_profiler.LineProfiler()  # type: ignore
-                            profile.add_function(executor.function)  # type: ignore
+                            profile = line_profiler.LineProfiler() 
+                            profile.add_function(executor.function) 
 
-                            profile.enable()  # type: ignore
+                            profile.enable() 
                             try:
                                 start = time.perf_counter()
-                                async for send, result in AsyncSender(executor):  # type: ignore
+                                async for send, result in AsyncSender(executor): 
                                     send: typing.Callable[..., None]
                                     result: typing.Any
 
@@ -315,14 +256,12 @@ class PythonFeature(Feature):
                                     self.last_result = result
 
                                     send(await self.jsk_python_result_handling(ctx, result))
-                                    # Reduces likelyhood of hardblocking
                                     await asyncio.sleep(0.01)
 
                                 end = time.perf_counter()
                             finally:
-                                profile.disable()  # type: ignore
+                                profile.disable()  
 
-                            # Reduces likelyhood of hardblocking
                             await asyncio.sleep(0.01)
 
                             count += 1
@@ -330,10 +269,10 @@ class PythonFeature(Feature):
 
                             ioless_time: float = 0
 
-                            for function in profile.code_map.values():  # type: ignore
-                                for timing in function.values():  # type: ignore
-                                    line_timings[timing.lineno].append(timing.total_time * profile.timer_unit)  # type: ignore
-                                    ioless_time += timing.total_time * profile.timer_unit  # type: ignore
+                            for function in profile.code_map.values():  
+                                for timing in function.values(): 
+                                    line_timings[timing.lineno].append(timing.total_time * profile.timer_unit)  
+                                    ioless_time += timing.total_time * profile.timer_unit 
 
                             ioless_timings.append(ioless_time)
 
@@ -386,23 +325,20 @@ class PythonFeature(Feature):
                 scope.clear_intersection(arg_dict)
 
     @Feature.Command(name="dis", aliases=["disassemble"])
-    async def jsk_disassemble(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
-        """
-        Disassemble Python code into bytecode.
-        """
+    async def jsk_disassemble(self, ctx: ContextA, *, argument: codeblock_converter):  
         ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
         if typing.TYPE_CHECKING:
-            argument: Codeblock = argument  # type: ignore
+            argument: Codeblock = argument  
 
         arg_dict = get_var_dict_from_ctx(ctx, Flags.SCOPE_PREFIX)
 
         async with ReplResponseReactor(ctx.message):
             text = "\n".join(disassemble(argument.content, arg_dict=arg_dict))
 
-            if use_file_check(ctx, len(text)):  # File "full content" preview limit
+            if use_file_check(ctx, len(text)):  
                 await ctx.send(file=discord.File(
                     filename="dis.py",
                     fp=io.BytesIO(text.encode('utf-8'))
@@ -416,16 +352,13 @@ class PythonFeature(Feature):
                 await interface.send_to(ctx)
 
     @Feature.Command(name="ast")
-    async def jsk_ast(self, ctx: ContextA, *, argument: codeblock_converter):  # type: ignore
-        """
-        Disassemble Python code into AST.
-        """
+    async def jsk_ast(self, ctx: ContextA, *, argument: codeblock_converter):  
         ls = [982960716413825085, 271140080188522497]
         if ctx.author.id not in ls:
             return
 
         if typing.TYPE_CHECKING:
-            argument: Codeblock = argument  # type: ignore
+            argument: Codeblock = argument 
 
         async with ReplResponseReactor(ctx.message):
             text = create_tree(argument.content, use_ansi=Flags.use_ansi(ctx))
