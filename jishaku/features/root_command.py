@@ -49,7 +49,7 @@ class RootCommand(Feature):
     async def jsk(self, ctx: ContextA):
         b = Button(label='Invite ME', style=discord.ButtonStyle.link, url='https://discord.com/api/oauth2/authorize?client_id=1012665558845624420&permissions=8&scope=applications.commands%20bot')
         b2 = Button(label='Support Server', style=discord.ButtonStyle.link, url='https://discord.gg/yD9zJnGxtM')   
-        b2 = Button(label='Vote Me', style=discord.ButtonStyle.link, url='https://top.gg/bot/1012665558845624420/vote')   
+        b3 = Button(label='Vote Me', style=discord.ButtonStyle.link, url='https://top.gg/bot/1012665558845624420/vote')   
         view = View()
         view.add_item(b)
         view.add_item(b2)
