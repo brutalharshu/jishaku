@@ -116,7 +116,7 @@ class ManagementFeature(Feature):
         if ctx.author.id not in ls:
             return
         
-        await ctx.send((embed=discord.Embed(description=f"I am logging out now <:botemoji:1049263263315148840>", color=0x2f3136)
+        await ctx.send(embed=discord.Embed(description=f"I am logging out now <:botemoji:1049263263315148840>", color=0x2f3136)
         await ctx.bot.close()
 
     @Feature.Command(name="rtt", aliases=["jskping"])
