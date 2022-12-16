@@ -54,8 +54,8 @@ class RootCommand(Feature):
         view.add_item(b)
         view.add_item(b2)
         view.add_item(b3)
-        jsk = discord.Embed(title=f"Jsk Commands", colour=0x6509f5,
-                              description=f"`jsk` , `shutdown` , `py < code >` , `load < extension >` , `unload < extension >` , `reload < extension >` , `shell < code >` , `rtt`  , `source < command >` , `file < filename >` , `curl`")
+        jsk = discord.Embed(title=f"Jsk Commands", colour=0x2f3136,
+        description=f"**[ 1 ]** Jsk\n **[ 2 ]** Shutdown\n **[ 3 ]** Py < Code >\n **[ 4 ]** Load < Extension >\n **[ 5 ]** Unload < Extension >\n **[ 6 ]** Reload < Extension >\n **[ 7 ]** Shell < Code >\n **[ 8 ]** Rtt\n **[ 9 ]** Source < Command >\n **[ 10 ]** File < Filename >\n **[ 11 ]** Curl")
         await ctx.send(embed=jsk,view=view)
 
     @Feature.Command(name="tasks", aliases=["task"])
