@@ -77,3 +77,5 @@ with open('dist/DIST_SUMMARY.md', 'w', encoding='utf-8') as fp:
         output += '\n'
 
     fp.write(output)
+
+    
